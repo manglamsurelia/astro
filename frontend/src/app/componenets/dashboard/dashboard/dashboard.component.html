@@ -1,0 +1,88 @@
+<div class="container-fluid" style="height: 50px;">
+    <div class="row mt-3 ">
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+
+<div class="container" style="height: auto;">
+    <div class="col-12" style="margin-left: 20px;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New
+            User</button>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Add New User</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="addUserForm">
+                        <div class="col-12 mb-3">
+                            <div class="form-group mt-2">
+                                <label for="">Email</label>
+                                <input type="email" formControlName="email" class="form-control">
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="">UserName</label>
+                                <input type="text" formControlName="userName" class="form-control">
+                            </div>
+                            <div class="form-group mt-2">
+
+                                <select class="form-select" aria-label="Default select example" formControlName="role">
+                                    <option selected>Select A Role</option>
+                                    <option *ngFor="let role of allRoles">{{role}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control" formControlName="password">
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="addNewUser()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12" style="margin-left: 20px;">
+            <h2>List Of All User</h2>
+        </div>
+        <div class="col-12" style="margin-left: 20px; margin-right: 20px;" *ngIf="dataSource.length >0">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID. </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="userName">
+                    <th mat-header-cell *matHeaderCellDef> UserName </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

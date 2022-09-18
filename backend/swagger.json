@@ -1,0 +1,387 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "\"Finding Repository API documentation\"",
+        "description": "Finding Repository Api documentation"
+    },
+    "host": " 290e-2405-205-148b-4314-9d9b-c97f-9325-d004.ngrok.io",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "paths": {
+        "/api/auth/registration": {
+            "post": {
+                "tags": [
+                    "Signup"
+                ],
+                "description": "Create new user",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Signup",
+                        "schema": {
+                            "$ref": "#/definitions/Signup"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/Signup"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "login in the application",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "login",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully login",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/change-password": {
+            "patch": {
+                "tags": [
+                    "Update Password"
+                ],
+                "description": "update Password",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User password that we want to update",
+                        "schema": {
+                            "$ref": "#/definitions/updatePassword"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "password updated",
+                        "schema": {
+                            "$ref": "#/definitions/updatePassword"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/all-user": {
+            "get": {
+                "tags": [
+                    "Get all users list"
+                ],
+                "summary": "Get all User in system",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Will send `list of all repo.`"
+                    },
+                    "403": {
+                        "description": "You do not have necessary permissions for the resource"
+                    }
+                }
+            }
+        },
+        "/api/todo/show-todo-list": {
+            "get": {
+                "tags": [
+                    "Get all todo list"
+                ],
+                "summary": "Get all todo in system",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Will send `all todo data`"
+                    },
+                    "403": {
+                        "description": "You do not have necessary permissions for the resource"
+                    }
+                }
+            }
+        },
+        "/api/todo/create-todo-list": {
+            "post": {
+                "tags": [
+                    "Create todo list"
+                ],
+                "description": "Create new todo List",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "todo list that we want to create",
+                        "schema": {
+                            "$ref": "#/definitions/Todo"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New todo list is created",
+                        "schema": {
+                            "$ref": "#/definitions/Todo"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/todo/update-todo-list-status": {
+            "patch": {
+                "tags": [
+                    "Update todo"
+                ],
+                "description": "update todo",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "todo",
+                        "in": "body",
+                        "description": "todo that we want to update",
+                        "schema": {
+                            "$ref": "#/definitions/userTodo"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "todo updated",
+                        "schema": {
+                            "$ref": "#/definitions/userTodo"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/todo/update-todo-list": {
+            "patch": {
+                "tags": [
+                    "Update todo"
+                ],
+                "description": "update todo",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "todo",
+                        "in": "body",
+                        "description": "todo that we want to update",
+                        "schema": {
+                            "$ref": "#/definitions/userUpdateTodo"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "todo updated",
+                        "schema": {
+                            "$ref": "#/definitions/userUpdateTodo"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/repository/delete-todo-list/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of todo that we want to delete",
+                    "type": "integer"
+                }
+            ],
+            "delete": {
+                "summary": "delete todo with give ID",
+                "tags": [
+                    "Delete Repository"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "repository deleted"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Todo": {
+            "required": [
+                "description",
+                "dueDate",
+                "priority",
+                "assignTo"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "dueDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "priority": {
+                    "type": "string"
+                },
+                "assignTo": {
+                    "type": "string"
+                },
+                "assignToId": {
+                    "type": "number"
+                }
+            }
+        },
+        "userTodo": {
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "done": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "userUpdateTodo": {
+            "properties": {
+                "id": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dueDate": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "priority": {
+                    "type": "string"
+                },
+                "assignTo": {
+                    "type": "string"
+                },
+                "assignToId": {
+                    "type": "number"
+                }
+            }
+        },
+        "Signup": {
+            "properties": {
+                "userName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "Login": {
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "updatePassword": {
+            "properties": {
+                "old-password": {
+                    "type": "string"
+                },
+                "new-password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

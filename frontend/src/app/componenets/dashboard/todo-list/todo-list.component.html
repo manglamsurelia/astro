@@ -1,0 +1,160 @@
+<div class="container-fluid" style="height: 50px;">
+    <div class="row mt-3 ">
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+<div class="container mb-3">
+    <div class="col-12" style="margin-left: 20px;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New
+            Todo
+        </button>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Add New Task</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="addTodoForm">
+                        <div class="col-12 mb-3">
+                            <div class="form-group mt-2">
+                                <label for="">Decription</label>
+                                <input type="email" formControlName="decription" class="form-control">
+                            </div>
+                            <div class="form-group mt-2">
+                                <select class="form-select" aria-label="Default select example"
+                                    formControlName="priority">
+                                    <option selected>Priority</option>
+                                    <option *ngFor="let prior of priority">{{prior}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <select class="form-select" aria-label="Default select example" [(ngModel)]="assign"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option selected>Assign to</option>
+                                    <option *ngFor="let role of allUser" [value]="role | json">{{role?.userName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <mat-form-field class="example-full-width width100" appearance="fill">
+                                    <mat-label>Choose a date</mat-label>
+                                    <input matInput [(ngModel)]="dueDate" [matDatepicker]="picker"
+                                        [ngModelOptions]="{standalone: true}">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matSuffix [for]="picker">
+                                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="addTask()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12" style="margin-left: 20px;">
+        <h2>List Of All User</h2>
+    </div>
+    <div class="col-12" style="margin-left: 20px; margin-right: 20px;" *ngIf="dataSource.length >0">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 width100">
+            <!-- Position Column -->
+            <ng-container matColumnDef="done">
+                <th mat-header-cell *matHeaderCellDef> Done </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-checkbox class="example-margin" (click)="done(element)"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="decription">
+                <th mat-header-cell *matHeaderCellDef> Decription </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="dueDate">
+                <th mat-header-cell *matHeaderCellDef> Due Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.dueDate | date}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="priority">
+                <th mat-header-cell *matHeaderCellDef> Priority </th>
+                <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
+            </ng-container>
+            <ng-container matColumnDef="assignTo">
+                <th mat-header-cell *matHeaderCellDef> Assigned to </th>
+                <td mat-cell *matCellDef="let element"> {{element.assignTo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon (click)="editTodo(element)" class="cursor">edit</mat-icon>
+                    <mat-icon class="cursor" (click)="deleteTodo(element)">delete</mat-icon>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+   
+</div>
+<!-- <button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Open My Modal</button> -->
+   
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLabel">Edit Todo</h3>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editTodoForm">
+        <div class="col-12 mb-3">
+            <div class="form-group mt-2">
+                <label for="">Decription</label>
+                <input type="email"  class="form-control">
+            </div>
+            <div class="form-group mt-2">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Priority</option>
+                    <option *ngFor="let prior of priority">{{prior}}</option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="assign"
+                    [ngModelOptions]="{standalone: true}">
+                    <option selected>Assign to</option>
+                    <option *ngFor="let role of allUser" [value]="role | json">{{role?.userName}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group mt-2">
+                <mat-form-field class="example-full-width width100" appearance="fill">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [(ngModel)]="dueDate" [matDatepicker]="picker"
+                        [ngModelOptions]="{standalone: true}">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>

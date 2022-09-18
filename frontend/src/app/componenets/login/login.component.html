@@ -1,0 +1,21 @@
+<div class="wrapper fadeInDown" >
+    <div id="formContent" style="margin-top: 60px ;">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first" style="padding-top: 20px ;">
+        <h2>User Login</h2>
+        <!-- <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> -->
+      </div>
+  
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <input type="text" id="login" class="fadeIn second" name="login" formControlName="email" placeholder="login">
+        <input type="password" id="password" class="fadeIn third" formControlName="password" name="login" placeholder="password">
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+    </div>
+</div>
+<div class="row text-center" *ngIf="!loginsucces">
+  <!-- <mat-spinner></mat-spinner> -->
+</div>

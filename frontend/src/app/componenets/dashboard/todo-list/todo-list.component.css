@@ -1,0 +1,9 @@
+::ng-deep .cdk-overlay-container {
+    z-index:2000;
+  }
+.width100{
+    width: 100% !important;
+}
+.cursor{
+  cursor: pointer;
+}

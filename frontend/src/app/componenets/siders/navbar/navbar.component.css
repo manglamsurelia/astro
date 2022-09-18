@@ -1,0 +1,38 @@
+.navbar.navbar-absolute {
+    position: absolute;
+    width: 100%;
+    z-index: 1029;
+}
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    position: absolute;
+}
+ .dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+.showAccount{
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+.logOut{
+    border: none;
+}
+.cursor{
+    cursor: pointer;
+}
+.log{
+    height: 40px;
+    width: 100px;
+    background: radial-gradient(black, transparent);
+    color: white;
+}
+.logPosition{
+    top: 50px;
+    right: -60px;
+}

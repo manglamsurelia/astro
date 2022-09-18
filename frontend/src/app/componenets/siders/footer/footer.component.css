@@ -1,0 +1,39 @@
+.main-panel .footer {
+    border-top: 1px solid #e7e7e7;
+}
+.footer {
+    padding: 0.9375rem 0;
+    text-align: center;
+    display: flex;
+}
+.pull-left {
+    float: left;
+}
+.footer ul {
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+}
+.footer ul li {
+    display: inline-block;
+}
+.footer ul li a {
+    color: inherit;
+    padding: 0.9375rem;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    text-decoration: none;
+    position: relative;
+    display: block;
+}
+.footer .copyright {
+    padding: 15px 0;
+}   
+.pull-right {
+    float: right;
+}
+a {
+    color: #9c27b0;
+}

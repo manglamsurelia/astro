@@ -1,0 +1,22 @@
+{
+  "name": "repo-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "sql-template-strings": "^2.2.2",
+    "swagger-ui-express": "^4.5.0",
+    "util": "^0.12.4"
+  }
+}
