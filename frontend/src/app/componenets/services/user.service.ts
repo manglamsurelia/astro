@@ -33,4 +33,23 @@ export class UserService {
    public updateTodo(todoData):Observable<any>{
     return this.httpClient.patch(this.url +'api/todo/update-todo-list',todoData);
    }
+   public deleteTodo(todoId):Observable<any>{
+    return this.httpClient.delete(this.url +`api/todo/delete-todo-list/${todoId}`)
+   }
+   public editTodo(todo):Observable<any>{
+    return this.httpClient.patch(this.url +'api/todo/update-todo-list',todo);
+   }
+   ///Client Api calls
+   public allClient():Observable<any>{
+    return this.httpClient.get(this.url + 'api/clientTracking/showClients');
+   }
+   public deleteClient(id):Observable<any>{
+    return this.httpClient.delete(this.url + `api/clientTracking/delete-client/${id}`);
+   }
+   public addNewClient(data):Observable<any>{
+    return this.httpClient.post(this.url +'api/clientTracking/create-client', data)
+   }
+   public updateClient(data,id):Observable<any>{
+    return this.httpClient.patch(this.url + `api/clientTracking/update-client/${id}`,data)
+   }
 }

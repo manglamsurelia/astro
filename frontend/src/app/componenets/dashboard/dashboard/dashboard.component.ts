@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
-export interface userList{
+export interface User{
   id:number,
   email:string,
   userName:string,
@@ -15,16 +18,14 @@ export interface userList{
 })
 export class DashboardComponent implements OnInit {
   addUserForm:FormGroup
-  allUsers:userList[]=[]
+  userSpinner:boolean =true
   allRoles = ['User', 'SubAdmin' ]
   displayedColumns: string[] = ['id', 'userName', 'email', 'role'];
-  dataSource;
-  constructor(private userService:UserService) {
-    this.listAllUsers();
-    this.dataSource =this.allUsers
-   }
+   dataSource=new MatTableDataSource<User>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  constructor(private userService:UserService, private toaster:ToastrService) {}
   ngAfterViewInit(): void {
-    this.dataSource =this.allUsers    
+    this.dataSource.paginator = this.paginator
   }
 
   ngOnInit(): void {
@@ -34,24 +35,28 @@ export class DashboardComponent implements OnInit {
       password: new FormControl(),
       role: new FormControl()
     })
-    
+    this.listAllUsers();
   }
   
   addNewUser(){
     this.userService.addUsers(this.addUserForm.value).subscribe(data =>{
-      console.log(data);
-      this.listAllUsers()
+      if(data.sucess === true){
+        this.toaster.success("User Added successfully !!", "User added successfully !!")
+        this.userSpinner=true;
+        this.listAllUsers();
+      }
     })
   }
   
   listAllUsers(){
-    console.log('trying');
-    
     this.userService.userList().subscribe( res=>{
-      res.data.forEach(element => {
-        console.log(element);
-        this.allUsers.push(element)
-      });
+      if(res.sucess === true){
+        this.dataSource.data= res.data;
+        setTimeout(() => {
+          this.userSpinner =false
+        }, 200);
+       
+      }
     })
     
   }

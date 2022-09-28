@@ -9,6 +9,7 @@ import { LayoutRoutes } from "./layout.routing";
 import { NotificationComponent } from "./notification/notification.component";
 import { TodoListComponent } from "./todo-list/todo-list.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { ClientTabComponent } from './client-tab/client-tab.component';
 // import { GtagModule } from 'angular-gtag';
 @NgModule({
     imports:[
@@ -22,7 +23,8 @@ import { UserProfileComponent } from "./user-profile/user-profile.component";
         DashboardComponent,
         UserProfileComponent,
         TodoListComponent,
-        NotificationComponent
+        NotificationComponent,
+        ClientTabComponent
     ]
 })
 export class LayoutModule {}

@@ -12,15 +12,17 @@ import { LoginComponent } from './componenets/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialExampleModule } from 'src/material.module';
-import { AuthGuardService } from './componenets/services/auth-guard.service';
 import { TokenInterceptorService } from './componenets/services/interceptors/token-interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
+import { ChangePasswordComponent } from './componenets/change-password/change-password.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    LoginComponent
+    LoginComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -30,15 +32,15 @@ import { TokenInterceptorService } from './componenets/services/interceptors/tok
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialExampleModule
+    MaterialExampleModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
-    },
-    AuthGuardService
+    }
   ],
   bootstrap: [AppComponent]
 })

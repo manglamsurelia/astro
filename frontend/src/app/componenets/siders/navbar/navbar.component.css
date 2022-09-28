@@ -20,9 +20,9 @@
     opacity: 1;
     transform: scale(1);
 }
-.logOut{
+/* .logOut{
     border: none;
-}
+} */
 .cursor{
     cursor: pointer;
 }
@@ -35,4 +35,14 @@
 .logPosition{
     top: 50px;
     right: -60px;
+}
+.displayNone{
+    display: none;
+}
+.logout{
+position: fixed;
+margin-top: 160px;
+}
+.profile{
+    background-color: #f44336;
 }

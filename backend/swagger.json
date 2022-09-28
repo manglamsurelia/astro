@@ -259,7 +259,7 @@
                 }
             }
         },
-        "/api/repository/delete-todo-list/{id}": {
+        "/api/todo/delete-todo-list/{id}": {
             "parameters": [
                 {
                     "name": "id",

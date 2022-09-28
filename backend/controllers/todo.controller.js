@@ -7,7 +7,9 @@ exports.createRepository = async (req, res) => {
         const body = req.body;
         body.assignBy = parentId;
         // body.date = now();
+        console.log('body',body);
         const data = await repoService.createRepoService(body);
+        console.log('todotry',data);
         if (data.sucess == true) {
             res.status(200).json(data)
         }
@@ -115,7 +117,6 @@ exports.showRepository = async (req, res) => {
 exports.deleteRepository = async (req, res) => {
     try {
         let id = req.params.id
-     
         const data = await repoService.deleteRepoService(id);
         if (data.sucess == true) {
             res.status(200).json(data)

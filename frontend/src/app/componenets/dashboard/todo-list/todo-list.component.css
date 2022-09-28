@@ -7,3 +7,18 @@
 .cursor{
   cursor: pointer;
 }
+.textdec{
+  text-decoration: line-through;
+}
+.textdec2{
+  text-decoration: none;
+}
+
+mat-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+mat-table ng-container{
+  width: 100px;
+}

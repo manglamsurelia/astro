@@ -1,0 +1,261 @@
+<div class="mt70"></div>
+<ng-template [ngIf]="!clientSpinner">
+<div class="col-12" style="margin-left: 20px;">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New
+  </button>
+</div>
+
+<div class="row mt-4" style="margin-left: 20px;">
+  <div class="col-md-12">
+    <h2>List Of All Clients</h2>
+  </div>
+  <section class='tableSection'>
+    
+    <mat-table class="matTable" [dataSource]="dataSource">
+      <ng-container matColumnDef="clientName">
+        <mat-header-cell *matHeaderCellDef> Client Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.clientName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="clientPhone">
+        <mat-header-cell *matHeaderCellDef> Client Phone </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.clientPhone}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="clientEmail">
+        <mat-header-cell *matHeaderCellDef> Client Email </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.clientEmail}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="estimatedSale">
+        <mat-header-cell *matHeaderCellDef> Estimated Sale </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.currency}} - {{row.estimatedSale}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="lastContact">
+        <mat-header-cell *matHeaderCellDef> Last Contact </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.lastContact | date}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nextAction">
+        <mat-header-cell *matHeaderCellDef> Next Action </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.nextAction}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="nextContact">
+        <mat-header-cell *matHeaderCellDef> Next Contact </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.nextContact | date}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="leadStatus">
+        <mat-header-cell *matHeaderCellDef> Lead Status </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.leadStatus}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="leadSource">
+        <mat-header-cell *matHeaderCellDef> Lead Source </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.leadSource}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="notes">
+        <mat-header-cell *matHeaderCellDef> Notes </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.notes}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-icon class="cursor text-primary" (click)="editRecord(row,mymodal)">edit</mat-icon>
+          <mat-icon class="cursor text-danger" (click)="deleteCLient(row.clientId,mymodal2)">delete</mat-icon>
+
+          <!-- <button (click)="deleteRecord(row.clientId)">Delete</button>
+        <button (click)="editRecord(row,mymodal)">Edit</button> -->
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </section>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Add New Task</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addNewClientForm">
+          <div class="col-12 mb-3">
+            <div class="form-group mt-2">
+              <label for="">Client Name</label>
+              <input type="text" formControlName="clientName" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Client Phone</label>
+              <input type="text" formControlName="clientPhone" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Client Email</label>
+              <input type="text" formControlName="clientEmail" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Estimate Sale</label>
+              <input type="text" formControlName="estimatedSale" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Currency</label>
+              <select class="form-select" aria-label="Default select example" formControlName="currency">
+                <option *ngFor="let currency of currencies">{{currency}}</option>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+              <mat-form-field class="example-full-width width100" appearance="fill">
+                <mat-label>Last Contact</mat-label>
+                <input matInput formControlName="lastContact" [matDatepicker]="picker1">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Next Action</label>
+              <input type="text" formControlName="nextAction" class="form-control">
+            </div>
+            <div class="form-group mt-2">
+              <mat-form-field class="example-full-width width100" appearance="fill">
+                <mat-label>Next contact</mat-label>
+                <input matInput formControlName="nextContact" [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Lead Status</label>
+              <select class="form-select" aria-label="Default select example" formControlName="leadStatus">
+                <option *ngFor="let lead of leadStatus">{{lead.name}}</option>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Lead Source</label>
+              <select class="form-select" aria-label="Default select example" formControlName="leadSource">
+                <option *ngFor="let lead of leadSource">{{lead.name}}</option>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+              <label for="">Notes</label>
+              <input type="text" formControlName="notes" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addNewClient()">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>
+<ng-template [ngIf]="clientSpinner">
+  <div class="d-flex justify-content-center" style="margin-top: 200px; margin-bottom: 200px;">
+      <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+      </div>
+  </div>
+</ng-template>
+<!-- edit  -->
+
+<ng-template #mymodal let-modal let-c="close">
+  <div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLabel">Edit Todo</h3>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editClientForm">
+      <div class="col-12 mb-3">
+        <div class="form-group mt-2">
+          <label for="">Client Name</label>
+          <input type="text" formControlName="clientName" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Client Phone</label>
+          <input type="text" formControlName="clientPhone" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Client Email</label>
+          <input type="text" formControlName="clientEmail" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Estimate Sale</label>
+          <input type="text" formControlName="estimatedSale" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <mat-form-field class="example-full-width width100" appearance="fill">
+            <mat-label>Last Contact</mat-label>
+            <input matInput formControlName="lastContact" [matDatepicker]="picker1">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker1">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Next Action</label>
+          <input type="text" formControlName="nextAction" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <mat-form-field class="example-full-width width100" appearance="fill">
+            <mat-label>Next contact</mat-label>
+            <input matInput formControlName="nextContact" [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker">
+              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Lead Status</label>
+          <input type="text" formControlName="leadStatus" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Lead Source</label>
+          <input type="text" formControlName="leadSource" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <label for="">Notes</label>
+          <input type="text" formControlName="notes" class="form-control">
+        </div>
+        <div class="form-group mt-2">
+          <select class="form-select" aria-label="Default select example" formControlName="currency">
+            <option selected>currency</option>
+            <option *ngFor="let currency of currencies">{{currency}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #mymodal2 let-modal let-c="close">
+  <div class="modal-header">
+      <h3 class="modal-title" id="exampleModalLabel">Edit Todo</h3>
+      <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+      Do you want to delete this todo
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+  </div>
+</ng-template>

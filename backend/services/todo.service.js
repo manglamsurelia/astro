@@ -5,7 +5,6 @@ exports.createRepoService = async (data) => {
     try {
         var query = `INSERT INTO todo (done,description,dueDate,priority,assignTo,assignBy,assignToId) VALUES (false,"${data.description}","${data.dueDate}","${data.priority}","${data.assignTo}",${data.assignBy},${data.assignToId})`;
         const result = await sql.query(query)
-
         if (result) {
             return {
                 sucess: true,
@@ -22,7 +21,6 @@ exports.createRepoService = async (data) => {
 
 // service for update repo. 
 exports.updateRepoService = async (data) => {
-    console.log(data)
     try {
         var query = `UPDATE todo
                      SET done = ${data.done}
@@ -50,7 +48,7 @@ exports.updateTodoService = async (data) => {
     try {
         var query = `UPDATE todo
                      SET description = "${data.description}" ,dueDate = "${data.dueDate}",priority="${data.priority}",assignTo="${data.assignTo}",assignToId = ${data.assignToId}
-                     WHERE todoId = ${data.id}`;
+                     WHERE todoId = ${data.todoId}`;
 
         const result = await sql.query(query)
 
@@ -120,7 +118,7 @@ exports.showUserRepoService = async (data) => {
 // service for delete repo. 
 exports.deleteRepoService = async (data) => {
     try {
-        var query = `DELETE FROM todo WHERE id=${data}`
+        var query = `DELETE FROM todo WHERE todoId=${data}`
         const result = await sql.query(query)
 
         if (result) {
