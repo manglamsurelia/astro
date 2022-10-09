@@ -21,7 +21,7 @@ export interface Todo {
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
-export class TodoListComponent implements OnInit, AfterViewInit {
+export class TodoListComponent implements OnInit {
   addTodoForm: FormGroup
   editTodoForm:FormGroup
   priorities = ['Low', 'Medium', 'High'];
@@ -34,7 +34,12 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   doneId;
   doneIdbool:boolean=false;
   closeResult: string;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   displayedColumns: string[] = ['done', 'decription', 'dueDate', 'priority','assignTo','action'];
   idColumn: any;
   dsData: any;
@@ -42,9 +47,6 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   constructor(private userService: UserService,private modalService: NgbModal, private toaster:ToastrService) {
 
    }
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
 
   ngOnInit(): void {
     this.addTodoForm = new FormGroup({
@@ -165,4 +167,7 @@ export class TodoListComponent implements OnInit, AfterViewInit {
     dataSource.paginator = paginator;
   }
 
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+  }
 }

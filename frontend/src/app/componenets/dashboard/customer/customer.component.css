@@ -1,0 +1,18 @@
+.mt70 {
+    margin-top: 70px;
+}
+::ng-deep .cdk-overlay-container {
+    z-index: 2000;
+}
+
+.width100 {
+    width: 100% !important;
+}
+.cursor{
+    cursor: pointer;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    /* background-color: rgba(0,0,0,.04); */
+    background-color: white !important;
+    border-bottom: none !important;
+}

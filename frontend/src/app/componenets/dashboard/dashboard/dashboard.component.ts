@@ -22,7 +22,12 @@ export class DashboardComponent implements OnInit {
   allRoles = ['User', 'SubAdmin' ]
   displayedColumns: string[] = ['id', 'userName', 'email', 'role'];
    dataSource=new MatTableDataSource<User>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  private paginator: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
   constructor(private userService:UserService, private toaster:ToastrService) {}
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator
@@ -59,6 +64,9 @@ export class DashboardComponent implements OnInit {
       }
     })
     
+  }
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
   }
 
 }

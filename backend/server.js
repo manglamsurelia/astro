@@ -4,6 +4,7 @@ const app = express()
 const Auth = require('./router/auth.router');
 const Repo = require('./router/todo.router');
 const client = require('./router/clientTracking.router')
+const customer = require('./router/sale.router')
 const swaggerUi = require('swagger-ui-express');
 swaggerDocument = require('./swagger.json');
 
@@ -19,6 +20,7 @@ const basePath = "/api";
 app.use(`${basePath}/auth`,cors(),Auth);
 app.use(`${basePath}/todo`,cors(),Repo);
 app.use(`${basePath}/clientTracking`,cors(),client);
+app.use(`${basePath}/customer`,cors(),customer);
 
 
 let PORT = process.env.port || 3000

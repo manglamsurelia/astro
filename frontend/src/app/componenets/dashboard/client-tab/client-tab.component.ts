@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -38,14 +39,20 @@ export class ClientTabComponent implements OnInit,AfterViewInit {
   columnsSchema: any = clientColumns;
   private idColumn = 'id';
   private dsData: any;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  private paginator: MatPaginator;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
   currencies=['INR','DOLLAR']
   closeResult: string;
   tableData:boolean=false
   clientSpinner:boolean=true
   constructor(private toaster: ToastrService,private modalService: NgbModal, public dialog: MatDialog, private userService: UserService) { }
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
@@ -105,7 +112,7 @@ export class ClientTabComponent implements OnInit,AfterViewInit {
         this.userService.updateClient(this.editClientForm.value, event.clientId).subscribe(res=>{
           if(res.sucess === true){
             this.clientSpinner=true
-            this.toaster.success("Todo Updated successfully !!", "Todo Updated successfully !!")
+            this.toaster.success("Client Updated successfully !!", "Client Updated successfully !!")
             this.ngOnInit();
           }
         })
@@ -152,5 +159,8 @@ export class ClientTabComponent implements OnInit,AfterViewInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
   }
 }

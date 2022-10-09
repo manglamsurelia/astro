@@ -33,9 +33,14 @@
     margin-right: 15px;
 }
  .logo-img img {
-    width: 35px;
+    /* width: 35px;
     top: 16px;
-    position: absolute;
+    position: absolute; */
+    width: 160px;
+    height: 45px;
+    left: 30px;
+    /* top: 51px; */
+    position: relative;
 }
  .sidebar-wrapper {
     position: relative;

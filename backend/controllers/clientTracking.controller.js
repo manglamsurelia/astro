@@ -12,7 +12,6 @@ exports.createClient = async (req, res) => {
                 message: 'errorrr'
             });
         }
-
     } catch (error) {
         res.status(400).json({
             sucess: false,
