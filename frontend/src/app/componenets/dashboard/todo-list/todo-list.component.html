@@ -76,30 +76,30 @@
             <ng-container matColumnDef="done">
                 <mat-header-cell *matHeaderCellDef> done </mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="done(row)"></mat-checkbox>
+                    <mat-checkbox (click)="done(row)" [(ngModel)]="row.done" [ngModelOptions]="{standalone: true}"></mat-checkbox>
                 </mat-cell>
             </ng-container>
          
             <ng-container matColumnDef="decription">
               <mat-header-cell *matHeaderCellDef> Decription </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+              <mat-cell *matCellDef="let row" [ngClass]="row.done === 1 ? 'textdec': 'textdec2'"> {{row.description}} </mat-cell>
             </ng-container>
         
         
             <ng-container matColumnDef="dueDate">
               <mat-header-cell *matHeaderCellDef>Due Date </mat-header-cell>
-              <mat-cell  *matCellDef="let row">  {{row.dueDate | date}} </mat-cell>
+              <mat-cell  *matCellDef="let row" [ngClass]="row.done === 1 ? 'textdec': 'textdec2'">  {{row.dueDate | date}} </mat-cell>
             </ng-container>
         
         
               <ng-container matColumnDef="priority">
                   <mat-header-cell *matHeaderCellDef> Priority</mat-header-cell>
-                  <mat-cell *matCellDef="let row">  {{row.priority}} </mat-cell>
+                  <mat-cell *matCellDef="let row" [ngClass]="row.done === 1 ? 'textdec': 'textdec2'">  {{row.priority}} </mat-cell>
               </ng-container>
         
               <ng-container matColumnDef="assignTo">
                   <mat-header-cell *matHeaderCellDef> AssignTo</mat-header-cell>
-                  <mat-cell *matCellDef="let row">  {{row.assignTo}} </mat-cell>
+                  <mat-cell *matCellDef="let row" [ngClass]="row.done === 1 ? 'textdec': 'textdec2'">  {{row.assignTo}} </mat-cell>
               </ng-container>
         
               <ng-container matColumnDef="action">

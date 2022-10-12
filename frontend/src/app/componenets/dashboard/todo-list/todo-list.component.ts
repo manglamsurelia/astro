@@ -92,14 +92,20 @@ export class TodoListComponent implements OnInit {
   }
 
   done(event){
-    this.doneIdbool =! this.doneIdbool
-    if(this.doneIdbool){
-      this.doneId = event.todoId
+  let doneSingle;  
+  if(event.done === 1){
+    doneSingle= false
+  }
+  else{
+    doneSingle=true
+  }
+  this.userService.updateTodoStatus({done:doneSingle , id:event.todoId}).subscribe(res=>{
+    if(res.sucess === true){
+      this.toaster.success("Status Updated successfully !!", "Status Updated successfully !!")
+      this.listAllTodos();
     }
-    else
-    {
-      this.doneId =''
-    }
+    console.log(res);
+  })
   }
   edit(event,content) {
     this.editTodoForm = new FormGroup({

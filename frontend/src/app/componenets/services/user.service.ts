@@ -33,6 +33,9 @@ export class UserService {
    public updateTodo(todoData):Observable<any>{
     return this.httpClient.patch(this.url +'api/todo/update-todo-list',todoData);
    }
+   public updateTodoStatus(data):Observable<any>{
+    return this.httpClient.patch(this.url+ 'api/todo/update-todo-list-status',data)
+   }
    public deleteTodo(todoId):Observable<any>{
     return this.httpClient.delete(this.url +`api/todo/delete-todo-list/${todoId}`)
    }
