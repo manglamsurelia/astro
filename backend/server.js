@@ -5,6 +5,7 @@ const Auth = require('./router/auth.router');
 const Repo = require('./router/todo.router');
 const client = require('./router/clientTracking.router')
 const customer = require('./router/sale.router')
+const userDataTable= require('./router/userDatatable.router')
 const swaggerUi = require('swagger-ui-express');
 swaggerDocument = require('./swagger.json');
 
@@ -21,6 +22,7 @@ app.use(`${basePath}/auth`,cors(),Auth);
 app.use(`${basePath}/todo`,cors(),Repo);
 app.use(`${basePath}/clientTracking`,cors(),client);
 app.use(`${basePath}/customer`,cors(),customer);
+app.use(`${basePath}/userData`,cors(),userDataTable)
 
 
 let PORT = process.env.port || 3000

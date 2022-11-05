@@ -9,7 +9,7 @@ import { LayoutComponent } from './componenets/dashboard/layout/layout.component
 import { SiderModule } from './componenets/siders/sider.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './componenets/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialExampleModule } from 'src/material.module';
 import { TokenInterceptorService } from './componenets/services/interceptors/token-interceptor.service';
@@ -33,7 +33,8 @@ import { ChangePasswordComponent } from './componenets/change-password/change-pa
     ReactiveFormsModule,
     HttpClientModule,
     MaterialExampleModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FormsModule
   ],
   providers: [
     {

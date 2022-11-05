@@ -11,6 +11,7 @@ import { TodoListComponent } from "./todo-list/todo-list.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { ClientTabComponent } from './client-tab/client-tab.component';
 import { CustomerComponent } from './customer/customer.component';
+import { UserDataTableComponent } from './user-data-table/user-data-table.component';
 // import { GtagModule } from 'angular-gtag';
 @NgModule({
     imports:[
@@ -26,7 +27,8 @@ import { CustomerComponent } from './customer/customer.component';
         TodoListComponent,
         NotificationComponent,
         ClientTabComponent,
-        CustomerComponent
+        CustomerComponent,
+        UserDataTableComponent
     ]
 })
 export class LayoutModule {}

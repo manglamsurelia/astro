@@ -1,0 +1,737 @@
+<div class="container-fluid" style="height: 50px;">
+  <div class="row mt-3 ">
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+<div class="col-12" style="margin-left: 20px;">
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New
+    Todo
+  </button>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Add New Task</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addUserDataForm">
+          <div class="col-12 mb-3">
+            <div class="form-group mt-2">
+              <label for="">Category</label>
+              <!-- [ngModelOptions]="{standalone: true}"[(ngModel)]="category" -->
+              <select class="form-select" aria-label="Default select example" formControlName="category"
+                (change)="setCategory($event)">
+                <option value="">Select a Category</option>
+                <option #event *ngFor="let category of Categories">{{category}}</option>
+              </select>
+            </div>
+            <div class="row" *ngIf="selectedCategory == 'Marriage' || selectedCategory== 'Progeny'">
+              <div class="col-md-12" *ngIf="selectedCategory == 'Marriage'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesMarriage">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12" *ngIf="selectedCategory == 'Progeny'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesProgeny">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Boy's Name</label>
+                <input type="text" formControlName="boy_Name" class="form-control">
+
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Girl's Name</label>
+                <input type="text" formControlName="girl_Name" class="form-control">
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Boy's BirthPlace</label>
+                <input type="text" formControlName="boy_birthPlace" class="form-control">
+
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Girl's BirthPlace</label>
+                <input type="text" formControlName="girl_birthPlace" class="form-control">
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Boy's BirthTime</label>
+                <input type="text" formControlName="boy_birthTime" class="form-control">
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Girl's BirthTime</label>
+                <input type="text" formControlName="girl_birthTime" class="form-control">
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Boy's DOB</label>
+                <mat-form-field class="example-full-width width100" appearance="fill">
+                  <input matInput formControlName="boy_dob" [matDatepicker]="picker1">
+                  <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Girl's DOB</label>
+                <mat-form-field class="example-full-width width100" appearance="fill">
+                  <input matInput formControlName="girl_dob" [matDatepicker]="picker2">
+                  <mat-datepicker-toggle matSuffix [for]="picker2">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="selectedCategory != 'Marriage' && selectedCategory!= 'Progeny'">
+              <div class="col-md-12" *ngIf="selectedCategory == 'Career & Finance'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesCareer">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12" *ngIf="selectedCategory == 'education'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesEducation">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12" *ngIf="selectedCategory == 'travel'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesTravel">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12" *ngIf="selectedCategory == 'health'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesHealth">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12" *ngIf="selectedCategory == 'longevity'">
+                <div class="form-group mt-2">
+                  <label>SubCategory</label>
+                  <select class="form-select" aria-label="Default select example" formControlName="subCategory">
+                    <option value="">Select a Sub Category</option>
+                    <option #event *ngFor="let category of subCategoriesLongevity">{{category}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>DOB</label>
+                <mat-form-field class="example-full-width width100" appearance="fill">
+                  <input matInput formControlName="dob" [matDatepicker]="picker3">
+                  <mat-datepicker-toggle matSuffix [for]="picker3">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Birth Time</label>
+                <input type="text" class="form-control" formControlName="birthTime">
+              </div>
+              <div class="col-md-6 mt-2">
+                <label>Birth Place</label>
+                <input type="text" class="form-control" formControlName="birthPlace">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Native Question</label>
+                <input type="text" class=" form-control" formControlName="native_question">
+              </div>
+              <div class="col-md-6">
+                <label>Comments</label>
+                <input type="text" class="form-control" formControlName="comment">
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addTask()">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label=" Marriage">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Marriages</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceMarriage">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy Name">
+            <mat-header-cell *matHeaderCellDef> Boy Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_Name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy BirthPlace">
+            <mat-header-cell *matHeaderCellDef> Boy BirthPlace </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy BirthTime">
+            <mat-header-cell *matHeaderCellDef> Boy BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy birthDate">
+            <mat-header-cell *matHeaderCellDef>Boy birthDate</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_dob | date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl Name">
+            <mat-header-cell *matHeaderCellDef> Girl Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_Name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl BirthPlace">
+            <mat-header-cell *matHeaderCellDef> Girl BirthPlace </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl BirthTime">
+            <mat-header-cell *matHeaderCellDef> Girl BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl BirthDate">
+            <mat-header-cell *matHeaderCellDef>Girl BirthDate</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_dob | date}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsMarriage"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsMarriage;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Career and Finance">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Careers and Finance</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceCareer">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef>Birth Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dob | date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_time">
+            <mat-header-cell *matHeaderCellDef> BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_place">
+            <mat-header-cell *matHeaderCellDef>Birth place</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="native_question">
+            <mat-header-cell *matHeaderCellDef>Native Question</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.native_question}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsCareer"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsCareer;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Progeny">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Progeny</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceProgeny">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy Name">
+            <mat-header-cell *matHeaderCellDef> Boy Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_Name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy BirthPlace">
+            <mat-header-cell *matHeaderCellDef> Boy BirthPlace </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy BirthTime">
+            <mat-header-cell *matHeaderCellDef> Boy BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Boy birthDate">
+            <mat-header-cell *matHeaderCellDef>Boy birthDate</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.boy_dob | date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl Name">
+            <mat-header-cell *matHeaderCellDef> Girl Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_Name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl BirthPlace">
+            <mat-header-cell *matHeaderCellDef> Girl BirthPlace </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl BirthTime">
+            <mat-header-cell *matHeaderCellDef> Girl BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Girl BirthDate">
+            <mat-header-cell *matHeaderCellDef>Girl BirthDate</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.girl_dob | date}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsMarriage"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsMarriage;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Education">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Education</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceEducation">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef>Birth Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dob | date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_time">
+            <mat-header-cell *matHeaderCellDef> BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_place">
+            <mat-header-cell *matHeaderCellDef>Birth place</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="native_question">
+            <mat-header-cell *matHeaderCellDef>Native Question</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.native_question}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsEducation"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsEducation;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Travel">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Travel</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceTravel">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef>Birth Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dob | date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_time">
+            <mat-header-cell *matHeaderCellDef> BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_place">
+            <mat-header-cell *matHeaderCellDef>Birth place</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="native_question">
+            <mat-header-cell *matHeaderCellDef>Native Question</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.native_question}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsTravel"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsTravel;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Health">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Health</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceHealth">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef>Birth Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dob |date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_time">
+            <mat-header-cell *matHeaderCellDef> BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_place">
+            <mat-header-cell *matHeaderCellDef>Birth place</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="native_question">
+            <mat-header-cell *matHeaderCellDef>Native Question</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.native_question}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsHealth"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsHealth;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Litigation">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Litigation</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceLitigation">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef>Birth Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dob |date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_time">
+            <mat-header-cell *matHeaderCellDef> BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_place">
+            <mat-header-cell *matHeaderCellDef>Birth place</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="native_question">
+            <mat-header-cell *matHeaderCellDef>Native Question</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.native_question}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsLitigation"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsLitigation;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+  <mat-tab label="Longetivity">
+    <div class="row mt-4" style="margin-left: 20px;">
+      <div class="col-md-12">
+        <h2>Longetivity</h2>
+      </div>
+      <section class='tableSection'>
+        <mat-table class="matTable" [dataSource]="dataSourceLongevity">
+          <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.subCategory}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="dob">
+            <mat-header-cell *matHeaderCellDef>Birth Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.dob |date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_time">
+            <mat-header-cell *matHeaderCellDef> BirthTime </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthTime}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="birth_place">
+            <mat-header-cell *matHeaderCellDef>Birth place</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.birthPlace}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="native_question">
+            <mat-header-cell *matHeaderCellDef>Native Question</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.native_question}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>Comments</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.comment}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-icon class="cursor text-primary" (click)="editUserData(row,mymodal)">edit</mat-icon>
+              <mat-icon class="cursor text-danger" (click)="deleteMarriageData(row.user_id,mymodal2)">delete</mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumnsLongevity"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsLongevity;"></mat-row>
+        </mat-table>
+        <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>  -->
+      </section>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+
+<ng-template #mymodal let-modal let-c="close">
+  <div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLabel">Edit Todo</h3>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editUserForm">
+      <div class="col-12 mb-3">
+        <div class="form-group mt-2">
+          <label for="">Category</label>
+          <select class="form-select" aria-label="Default select example">
+            <option *ngFor="let category of Categories">{{category}}</option>
+          </select>
+        </div>
+        <div class="row" *ngIf="selectedCategory === 'Marriage' || selectedCategory === 'Progeny'">
+          <div class="col-md-6 mt-2">
+            <label>Boy's Name</label>
+            <input type="text" formControlName="boy_Name" class="form-control">
+
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Girl's Name</label>
+            <input type="text" formControlName="girl_Name" class="form-control">
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Boy's BirthPlace</label>
+            <input type="text" formControlName="boy_birthPlace" class="form-control">
+
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Girl's BirthPlace</label>
+            <input type="text" formControlName="girl_birthPlace" class="form-control">
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Boy's BirthTime</label>
+            <input type="text" formControlName="boy_birthTime" class="form-control">
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Girl's BirthTime</label>
+            <input type="text" formControlName="girl_birthTime" class="form-control">
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Boy's DOB</label>
+            <mat-form-field class="example-full-width width100" appearance="fill">
+              <input matInput formControlName="boy_dob" [matDatepicker]="picker4">
+              <mat-datepicker-toggle matSuffix [for]="picker4">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Girl's DOB</label>
+            <mat-form-field class="example-full-width width100" appearance="fill">
+              <input matInput formControlName="girl_dob" [matDatepicker]="picker5">
+              <mat-datepicker-toggle matSuffix [for]="picker5">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker5></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="selectedCategory != 'Marriage' && selectedCategory!= 'Progeny'">
+          <div class="col-md-6 mt-2">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>DOB</label>
+            <mat-form-field class="example-full-width width100" appearance="fill">
+              <input matInput formControlName="dob" [matDatepicker]="picker6">
+              <mat-datepicker-toggle matSuffix [for]="picker6">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker6></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Birth Time</label>
+            <input type="text" class="form-control" formControlName="birthTime">
+          </div>
+          <div class="col-md-6 mt-2">
+            <label>Birth Place</label>
+            <input type="text" class="form-control" formControlName="birthPlace">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Native Question</label>
+            <input type="text" class=" form-control" formControlName="native_question">
+          </div>
+          <div class="col-md-6">
+            <label>Comments</label>
+            <input type="text" class="form-control" formControlName="comment">
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Cancel</button>
+  </div>
+</ng-template>
+
+<ng-template #mymodal2 let-modal let-c="close">
+  <div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLabel">Edit Todo</h3>
+    <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    Do you want to delete this todo
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+  </div>
+</ng-template>
