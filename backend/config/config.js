@@ -3,7 +3,7 @@ let testConfig = {
     "sql": {
         host: 'localhost',
         user: 'root',
-        password: '',
+        password: '12345',
         database: 'astro'
     },
     "jwt": {

@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { ClientTabComponent } from "./client-tab/client-tab.component";
 import { CustomerComponent } from "./customer/customer.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { InvoiceComponent } from "./invoice/invoice.component";
 import { NotificationComponent } from "./notification/notification.component";
 import { TodoListComponent } from "./todo-list/todo-list.component";
 import { UserDataTableComponent } from "./user-data-table/user-data-table.component";
@@ -14,5 +15,6 @@ export const LayoutRoutes:Routes=[
 {path:'notification', component:NotificationComponent},
 {path:'client',component:ClientTabComponent},
 {path:'customer', component:CustomerComponent},
-{path:'user-dataTable', component:UserDataTableComponent}
+{path:'user-dataTable', component:UserDataTableComponent},
+{path:'invoice', component:InvoiceComponent}
 ];

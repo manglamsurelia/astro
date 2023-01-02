@@ -1,4 +1,11 @@
 table {
-    width: 100%;
-  }
-  
+  width: 100%;
+}
+
+.mat-cell {
+  padding: 12px 12px 12px 50px;
+}
+
+.mat-header-cell {
+  padding: 12px 12px 12px 50px;
+}

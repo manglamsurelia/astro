@@ -1,0 +1,168 @@
+<div class="container-fluid" style="height: 50px;">
+    <div class="row mt-3 ">
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+
+<div id="invoice" class="invoice">
+    <div class="header">
+        <div>
+            <img _ngcontent-ris-c109="" src="../../../../assets/img/logo2.png">
+        </div>
+        <div>
+            <div id="addDiv" contenteditable="true" [textContent]="address">{{address}}</div>
+        </div>
+        <div>
+            <h2 class="blueTxt">INVOICE</h2>
+        </div>
+    </div>
+    <hr>
+    <div class="clientDiv">Client Information</div>
+    <br>
+    <div class="clientInfo">
+        <div>
+            <div id="addDiv" contenteditable="true" [textContent]="clientAdd">{{clientAdd}}</div>
+        </div>
+        <div>
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Invoice Number:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="invoiceNum">{{invoiceNum}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Invoice Date:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="invoiceDate">{{invoiceDate}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Session Number:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="sessionNum">{{sessionNum}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">App. Delivery Date:</b>&nbsp;&nbsp; <div id="textDiv" contenteditable="true"
+                    [textContent]="appDelData">{{appDelData}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Client Number:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="clientNum">{{clientNum}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Sales Rep:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="salesRep">{{salesRep}}</div>
+            </div>
+
+            <div style="display: flex;">
+                <b class="blueTxt">Main Phone:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="phone">{{phone}}</div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="clientDiv">Shipping Information</div>
+    <br>
+    <div class="clientInfo">
+        <div>
+            <div id="addDiv" contenteditable="true" [textContent]="clientAdd">{{clientAdd}}</div>
+        </div>
+    </div>
+
+    <!-- <hr>
+    <div class="clientDiv">Notes</div>
+    <br>
+    <div class="clientInfo">
+        <div>
+            <div id="addDiv" contenteditable="true" [textContent]="notesDiv">{{notesDiv}}</div>
+        </div>
+    </div> -->
+
+    <hr>
+    <div class="clientDiv">Payments</div>
+    <br>
+    <div class="clientInfo">
+        <div>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Method</th>
+                    <th>Amount</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="textDiv1" contenteditable="true" [textContent]="paymentDate">{{paymentDate}}</div>
+                    </td>
+                    <td>
+                        <div id="textDiv1" contenteditable="true" [textContent]="method">{{method}}</div>
+                    </td>
+                    <td>
+                        <div id="textDiv1" contenteditable="true" [textContent]="totalPayment">{{totalPayment}}</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Sub Total:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="subTotal" (keyup)="keyMethod($event)">
+                    {{subTotal}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Sales Tax:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="salesTax" (keyup)="keyMethod1($event)">
+                    {{salesTax}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Shipping:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="shipping" (keyup)="keyMethod2($event)">
+                    {{shipping}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Invoice Total:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="innTotal">{{innTotal}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Total Payments:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="totalPayment">{{totalPayment}}</div>
+            </div>
+
+            <div style="display: flex;margin-bottom: 5px;">
+                <b class="blueTxt">Balance Due:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="balanceDue">{{balanceDue}}</div>
+            </div>
+
+            <div style="display: flex;width: 130%;margin-left: -25px;">
+                <b class="blueTxt">Total Discount Included Are:</b>
+                <div id="textDiv" contenteditable="true" [textContent]="disInclude">{{disInclude}}</div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+    <div class="clientDiv">Notes</div>
+    <br>
+    <div class="clientInfo" style="margin-bottom:20px">
+        <div>
+            <div id="addDiv1" contenteditable="true" [textContent]="invoiceNotes">{{invoiceNotes}}</div>
+        </div>
+    </div>
+
+</div>
+
+<br>
+<div style="display: flex;justify-content: center;">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="download()">
+        Download</button>
+
+</div>
+<!-- <button >sss</button> -->

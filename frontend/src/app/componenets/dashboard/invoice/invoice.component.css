@@ -1,0 +1,59 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    margin-top: 3%;
+}
+
+.invoice {
+    margin: auto;
+    border: 1px solid black;
+    width: 80%;
+}
+
+.clientDiv {
+    background-color: red;
+    color: white;
+    width: 50%;
+    margin-left: 5%;
+    padding: 2%;
+    font-weight: 500;
+    padding-left: 18%;
+}
+
+.clientInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+}
+
+.blueTxt {
+    color: blue;
+    width: 50%;
+}
+
+#addDiv {
+    min-width: 350px;
+    max-width: 350px;
+    min-height: 80px;
+}
+
+#addDiv1 {
+    min-width: 705px;
+    max-width: 705px;
+    min-height: 80px;
+}
+
+#textDiv {
+    min-width: 166px;
+    max-width: 166px;
+    min-height: 25px;
+}
+
+#textDiv1 {
+    min-width: 135px;
+    max-width: 135px;
+    min-height: 25px;
+}

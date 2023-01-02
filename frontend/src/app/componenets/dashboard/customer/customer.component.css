@@ -16,3 +16,11 @@
     background-color: white !important;
     border-bottom: none !important;
 }
+
+.mat-cell {
+    padding: 12px 12px 12px 50px;
+}
+
+.mat-header-cell {
+    padding: 12px 12px 12px 50px;
+}
