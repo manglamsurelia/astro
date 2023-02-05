@@ -49,7 +49,7 @@ exports.loginService = async (data) => {
 
             if (validPassword) {
 
-                const accessToken = jwt.sign({ userName: result[0]['userName'], email: result[0]['email'], role: result[0]['role'], parentId: result[0]['id'] }, config.jwt.SECRET, {
+                const accessToken = jwt.sign({ userName: result[0]['userName'], email: result[0]['email'], role: result[0]['role'], id: result[0]['id'] }, config.jwt.SECRET, {
                     expiresIn: 86400 // 24 hours
                 });
 
@@ -127,7 +127,7 @@ exports.allUserService = async (data) => {
         if (data.role == 'admin') {
             query = `SELECT * FROM registration`
         } else {
-            query = `SELECT * FROM registration WHERE parentId="${data.parentId}"`;
+            query = `SELECT * FROM registration WHERE parentId="${data.id}" or id="${data.id}"`;
         }
         let result = await sql.query(query);
 

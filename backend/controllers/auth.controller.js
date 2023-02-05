@@ -6,7 +6,7 @@ exports.signup = async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         let user = req.body;
-        let parentId = req.jwt.parentId
+        let parentId = req.jwt.id
         // now we set user password to hashed password 
         user.password = await bcrypt.hash(user.password, salt);
     

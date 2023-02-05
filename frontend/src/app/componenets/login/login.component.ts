@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginsucces = true
     let user = this.loginForm.value;
-    console.log(user);
+    // console.log(user);
     this.userService.login(user).subscribe(res => {
       if (res.sucess = true) {
         this.toaster.success(" successfully LoggedIn !!", " successfully LoggedIn !!")

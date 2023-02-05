@@ -13,6 +13,7 @@ import { ClientTabComponent } from './client-tab/client-tab.component';
 import { CustomerComponent } from './customer/customer.component';
 import { UserDataTableComponent } from './user-data-table/user-data-table.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { AnalyticsComponent } from "./analytics/analytics.component";
 // import { GtagModule } from 'angular-gtag';
 @NgModule({
     imports:[
@@ -30,7 +31,8 @@ import { InvoiceComponent } from './invoice/invoice.component';
         ClientTabComponent,
         CustomerComponent,
         UserDataTableComponent,
-        InvoiceComponent
+        InvoiceComponent,
+        AnalyticsComponent
     ]
 })
 export class LayoutModule {}

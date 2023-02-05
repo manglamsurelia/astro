@@ -1,8 +1,10 @@
 const sql = require('../db');
 
 exports.createCustomerService= async(data)=>{
+    console.log(data)
     try {   
-            var query =`INSERT INTO saleslog (date_of_sale,customer_name,currency,amount,item,invoice,address,notes) VALUES ("${data.date_of_sale}","${data.customer_name}","${data.currency}","${data.amount}","${data.item}","${data.invoice}","${data.address}","${data.notes}")`;
+            var query =`INSERT INTO saleslog (date_of_sale,customer_name,currency,amount,item,invoice,address,notes,assignBy) VALUES ("${data.date_of_sale}","${data.customer_name}","${data.currency}","${data.amount}","${data.item}","${data.invoice}","${data.address}","${data.notes}",${data.assignBy})`;
+            console.log(query)
             const result = await sql.query(query);
             if(result){
                 return {
@@ -58,9 +60,9 @@ exports.deleteCustomerService = async(id)=>{
     }
 }
 
-exports.showCustomerService = async()=>{
+exports.showCustomerService = async(data)=>{
     try {
-        var query = `SELECT * FROM saleslog`;
+        var query = `SELECT * FROM saleslog WHERE assignBy=${data.id}`;
         const result = await sql.query(query);
         if(result){
             return {

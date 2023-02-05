@@ -19,8 +19,22 @@
 
 .mat-cell {
     padding: 12px 12px 12px 50px;
+    word-break: break-all;
 }
 
 .mat-header-cell {
     padding: 12px 12px 12px 50px;
+}
+
+mat-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+.mat-header-row{
+    width:115% !important;
+}
+
+.mat-row{
+    width:115% !important;
 }

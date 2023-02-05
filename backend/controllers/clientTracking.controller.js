@@ -9,7 +9,7 @@ exports.createClient = async (req, res) => {
         }
         else {
             res.status(404).json({
-                message: 'errorrr'
+                message: 'error'
             });
         }
     } catch (error) {

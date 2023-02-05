@@ -2,13 +2,16 @@ const saleService = require('../services/sale.service');
 
 exports.createCustomer = async (req, res) => {
     try {
+        const { id } = req.jwt;
         const body = req.body;
+        body.assignBy = id;
+        body.invoice = parseInt(`${id}`+`${body.invoice}`)
         const data = await saleService.createCustomerService(body);
         if (data.sucess == true) {
             res.status(200).json(data)
         } else {
             res.status(400).josn({
-                message: 'erorr'
+                message: 'error'
             })
         }
 

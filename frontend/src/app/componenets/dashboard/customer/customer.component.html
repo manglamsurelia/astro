@@ -1,4 +1,3 @@
-<div class="mt70"></div>
 <ng-template [ngIf]="!customerSpinner">
     <div class="col-12">
         <button style="margin-left: 40px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Create New
@@ -35,16 +34,17 @@
                     <mat-cell *matCellDef="let row"> {{row.invoice }} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="address">
-                    <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.address}} </mat-cell>
+                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef> Address </mat-header-cell>
+                    <mat-cell style="min-width: 150px;" *matCellDef="let row"> {{row.address}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="notes">
-                    <mat-header-cell *matHeaderCellDef> Notes </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{row.notes }} </mat-cell>
+                    <mat-header-cell style="min-width: 150px;" *matHeaderCellDef> Notes </mat-header-cell>
+                    <mat-cell style="min-width: 150px;" *matCellDef="let row"> {{row.notes }} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="options">
                     <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
                     <mat-cell *matCellDef="let row">
+                        <mat-icon class="cursor text-primary" (click)="editRecord(row,mymodal)"> pie_chart</mat-icon>
                         <mat-icon class="cursor text-primary" (click)="editRecord(row,mymodal)">edit</mat-icon>
                         <mat-icon class="cursor text-danger" (click)="deleteCustomer(row.sale_id,mymodal2)">delete
                         </mat-icon>
@@ -71,12 +71,12 @@
                     <form [formGroup]="addNewCustomerForm">
                         <div class="col-12 mb-3">
                             <div class="form-group mt-2">
-                                <mat-form-field class="example-full-width width100" appearance="fill">
+                                <mat-form-field class="example-full-width width100"  appearance="outline">
                                     <mat-label>Date of Sale</mat-label>
                                     <input matInput formControlName="date_of_sale" [matDatepicker]="picker1">
                                     <mat-hint>MM/DD/YYYY</mat-hint>
                                     <mat-datepicker-toggle matSuffix [for]="picker1">
-                                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                        <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
                                     </mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field>
@@ -87,16 +87,16 @@
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Amount</label>
-                                <input type="text" formControlName="amount" class="form-control">
+                                <input type="number" formControlName="amount" class="form-control">
                             </div>
                             <div class="form-group mt-2">
                                 <label for="">Item / Service</label>
                                 <input type="text" formControlName="item" class="form-control">
                             </div>
-                            <div class="form-group mt-2">
+                            <!-- <div class="form-group mt-2">
                                 <label for="">Invoice</label>
                                 <input type="text" formControlName="invoice" class="form-control">
-                            </div>
+                            </div> -->
                             <div class="form-group mt-2">
                                 <label for="">Currency</label>
                                 <select class="form-select" aria-label="Default select example"
@@ -141,12 +141,12 @@
         <form [formGroup]="editCustomerForm">
             <div class="col-12 mb-3">
                 <div class="form-group mt-2">
-                    <mat-form-field class="example-full-width width100" appearance="fill">
+                    <mat-form-field class="example-full-width width100" appearance="outline">
                         <mat-label>Date of Sale</mat-label>
                         <input matInput formControlName="date_of_sale" [matDatepicker]="picker1">
                         <mat-hint>MM/DD/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker1">
-                            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                            <!-- <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> -->
                         </mat-datepicker-toggle>
                         <mat-datepicker #picker1></mat-datepicker>
                     </mat-form-field>

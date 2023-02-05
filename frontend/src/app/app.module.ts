@@ -22,7 +22,7 @@ import { ChangePasswordComponent } from './componenets/change-password/change-pa
     AppComponent,
     LayoutComponent,
     LoginComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

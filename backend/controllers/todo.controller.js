@@ -3,13 +3,13 @@ const repoService = require('../services/todo.service')
 // controller for create Repository
 exports.createRepository = async (req, res) => {
     try {
-        const { parentId } = req.jwt;
+        const { id } = req.jwt;
         const body = req.body;
-        body.assignBy = parentId;
+        body.assignBy = id;
         // body.date = now();
-        console.log('body',body);
+        // console.log('body',body);
         const data = await repoService.createRepoService(body);
-        console.log('todotry',data);
+        // console.log('todotry',data);
         if (data.sucess == true) {
             res.status(200).json(data)
         }

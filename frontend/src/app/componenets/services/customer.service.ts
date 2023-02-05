@@ -13,6 +13,7 @@ export class CustomerService {
   public customerList():Observable<any>{
     return this.http.get(this.url +'api/customer/showCustomers');
   }
+  
   public addCustomer(data):Observable<any>{
     return this.http.post(this.url + 'api/customer/create-customer', data);
   }

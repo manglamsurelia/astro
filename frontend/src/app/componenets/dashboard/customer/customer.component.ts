@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { CustomerService } from '../../services/customer.service';
 export interface Customer {
@@ -15,23 +16,23 @@ export interface Customer {
   item: string;
   invoice: number;
   address: string;
-  notes:string
+  notes: string
 }
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.css']
 })
-export class CustomerComponent implements OnInit,AfterViewInit {
-  customerSpinner:boolean=true;
-  addNewCustomerForm:FormGroup;
-  editCustomerForm:  FormGroup;
+export class CustomerComponent implements OnInit, AfterViewInit {
+  customerSpinner: boolean = true;
+  addNewCustomerForm: FormGroup;
+  editCustomerForm: FormGroup;
   closeResult: string;
-  currencies=['INR','$'];
+  currencies = ['INR', '$'];
   private dsData: any;
   private idColumn = 'id';
-  dataSource=new MatTableDataSource<Customer>;
-  displayedColumns: string[] = ['date_of_sale', 'customer_name', 'amount', 'item','invoice','address','notes','options'];
+  dataSource = new MatTableDataSource<Customer>;
+  displayedColumns: string[] = ['date_of_sale', 'customer_name', 'amount', 'item', 'invoice', 'address', 'notes', 'options'];
 
   // @ViewChild(MatPaginator) paginator2: MatPaginator;
   private paginator: MatPaginator;
@@ -40,18 +41,18 @@ export class CustomerComponent implements OnInit,AfterViewInit {
     this.setDataSourceAttributes();
   }
 
-  constructor(private toaster: ToastrService,private modalService: NgbModal, public dialog: MatDialog,public customerService:CustomerService) { }
+  constructor(private toaster: ToastrService, private modalService: NgbModal, public dialog: MatDialog, public customerService: CustomerService) { }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
   ngOnInit(): void {
-    this.customerService.customerList().subscribe( res =>{
+    this.customerService.customerList().subscribe(res => {
       console.log(res);
-      if(res.sucess == true){
+      if (res.sucess == true) {
         this.dataSource.data = res.data;
         setTimeout(() => {
-          this.customerSpinner =false;
+          this.customerSpinner = false;
         }, 200);
       }
     })
@@ -59,16 +60,17 @@ export class CustomerComponent implements OnInit,AfterViewInit {
     this.addNewCustomerForm = new FormGroup({
       date_of_sale: new FormControl(),
       customer_name: new FormControl(),
-      currency: new FormControl(),
+      currency: new FormControl("INR"),
       amount: new FormControl(),
       item: new FormControl(),
-      invoice: new FormControl(),
+      invoice: new FormControl(Math.floor(Math.random() * 100000)),
       address: new FormControl(),
       notes: new FormControl()
     })
   }
 
-  addNewCustomer(){
+  addNewCustomer() {
+    this.addNewCustomerForm.value.date_of_sale = moment(this.addNewCustomerForm.value.date_of_sale).format("YYYY-MM-DD");
     this.customerService.addCustomer(this.addNewCustomerForm.value).subscribe(res=>{
       if (res.sucess == true) {
         this.customerSpinner=true
@@ -82,8 +84,8 @@ export class CustomerComponent implements OnInit,AfterViewInit {
     })
   }
 
-  editRecord(event,content){
-    this.editCustomerForm= new FormGroup({
+  editRecord(event, content) {
+    this.editCustomerForm = new FormGroup({
       date_of_sale: new FormControl(),
       customer_name: new FormControl(),
       currency: new FormControl(),
@@ -94,50 +96,52 @@ export class CustomerComponent implements OnInit,AfterViewInit {
       notes: new FormControl()
     })
     this.editCustomerForm.patchValue(event);
-    this.modalService.open(content,{ariaLabelledBy: 'modal-basic-title'}).result.then((result)=>{
-      this.closeResult= `Closed with :${result}`;
-      if(result == 'yes'){
-        this.customerService.updateCustomer(this.editCustomerForm.value, event.sale_id).subscribe(res=>{
-          if(res.sucess === true){
-            this.customerSpinner=true
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with :${result}`;
+      if (result == 'yes') {
+        this.editCustomerForm.value.date_of_sale = moment(this.editCustomerForm.value.date_of_sale).format("YYYY-MM-DD");
+        console.log(this.editCustomerForm)
+        this.customerService.updateCustomer(this.editCustomerForm.value, event.sale_id).subscribe(res => {
+          if (res.sucess === true) {
+            this.customerSpinner = true
             this.toaster.success("Customer Updated successfully !!", "Customer Updated successfully !!")
             this.ngOnInit();
-          }else{
-            console.log('Some Error'); 
+          } else {
+            console.log('Some Error');
           }
         })
       }
-    },(reason)=>{
+    }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`
     });
   }
 
-  deleteCustomer(id,modal){
-    this.modalService.open(modal,{ariaLabelledBy: 'modal-basic-title'}).result.then((result)=>{
+  deleteCustomer(id, modal) {
+    this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with : ${result}`;
-      if(result == 'yes'){
-      this.deleteSingleCustomer(id);
+      if (result == 'yes') {
+        this.deleteSingleCustomer(id);
       }
-    },(reason)=>{
+    }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`
     }
     )
   }
-  deleteSingleCustomer(id){
+  deleteSingleCustomer(id) {
     const dsData = this.dataSource.data;
     const record = dsData.find(obj => obj[this.idColumn] === id);
-    this.customerService.deleteCustomer(id).subscribe(res=>{
+    this.customerService.deleteCustomer(id).subscribe(res => {
       console.log(res);
       if (res.sucess == true) {
         this.toaster.success("Client deleted successfully !!", "Client deleted successfully !!")
-        this.deleteRowDataTable (id, this.idColumn, this.paginator, this.dataSource);
+        this.deleteRowDataTable(id, this.idColumn, this.paginator, this.dataSource);
       }
-      else{
+      else {
         console.log('Some Error ');
       }
     })
   }
-  private deleteRowDataTable (recordId, idColumn, paginator, dataSource) {
+  private deleteRowDataTable(recordId, idColumn, paginator, dataSource) {
     this.dsData = dataSource.data;
     const itemIndex = this.dsData.findIndex(obj => obj[idColumn] === recordId);
     dataSource.data.splice(itemIndex, 1);
@@ -149,7 +153,7 @@ export class CustomerComponent implements OnInit,AfterViewInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 

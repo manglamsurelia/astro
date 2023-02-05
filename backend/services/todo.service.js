@@ -74,7 +74,7 @@ exports.showRepoService = async (data) => {
             query = `SELECT * FROM todo`
         }
         else {
-            query = `SELECT * FROM todo WHERE assignBy=${data.parentId} OR assignToId=${data.parentId}`
+            query = `SELECT * FROM todo WHERE assignBy=${data.id} OR assignToId=${data.id}`
         }
         const result = await sql.query(query)
 

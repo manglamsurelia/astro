@@ -46,7 +46,7 @@
     position: relative;
     height: calc(100vh - 75px);
     overflow: auto;
-    width: 260px;
+    width: 210px;
     z-index: 4;
     padding-bottom: 30px;
 }
@@ -55,7 +55,7 @@
     display: block;
 }
  .nav li a, .sidebar .nav li .dropdown-menu a {
-    margin: 10px 15px 0;
+    margin: 10px 10px 0;
     border-radius: 3px;
     color: #3C4858;
     padding-left: 10px;
