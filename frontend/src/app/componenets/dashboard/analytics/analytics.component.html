@@ -1,1 +1,32 @@
-<p>analytics works!</p>
+<div style="display: flex;justify-content: center;">
+  <div>
+  <mat-form-field class="example-full-width width100" appearance="outline">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" [(ngModel)]="firstDate">
+      <input matEndDate placeholder="End date" [(ngModel)]="secondDate">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+  </div>
+
+  <div>
+    <button (click)="filter()" style="margin-left: 20px;margin-top: 10px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Filter
+  </button>
+  </div>
+</div>
+
+<br>
+<hr>
+<br>
+
+<!-- {{firstDate}}--------{{secondDate}} -->
+<div style="display: flex;justify-content: center;" >
+  <ng-container>
+    <div class="chart-container" id="parentDiv">
+    </div>
+  </ng-container>
+</div>

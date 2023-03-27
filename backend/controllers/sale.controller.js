@@ -81,3 +81,22 @@ exports.showCustomers = async(req,res)=>{
         })
     }
 }
+
+exports.analytics = async(req,res)=>{
+    try {
+        const data= await saleService.showAnalyticsService(req.jwt,req.query.start,req.query.end);
+        if(data.sucess == true){
+            res.status(200).json(data);
+        }else{
+            res.status(400).json({
+                sucess:false,
+                message:error
+            })
+        }
+    } catch (error) {
+        res.status(404).json({
+            sucess:false,
+            message:error
+        })
+    }
+}
